@@ -40,12 +40,14 @@ int main() {
         }
     }
 
-     printf("\nThe Strong numbers are:\n");
+     printf("\nThe Strong numbers are:");
     for (int i=small; i<=big; i++){
          if (isStrong(i)){
             printf(" %d",i);
         }
     }
+
+     printf("\n");
 
 return 0;
 
