@@ -1,5 +1,5 @@
 #include "NumClass.h"
-
+// Calculate the length of number with loop
 int lengthIter(int x){
     int sum = 0;
      while (x > 0) {
@@ -8,7 +8,7 @@ int lengthIter(int x){
     }
     return sum;
 }
-
+// Calculate the pow with loop
 int powIter(int number, int x) {
     int result = 1;
     for (int i = 0; i < x; i++) {
@@ -37,7 +37,7 @@ int isPalindrome(int num){
     while (num > 0) {
         int digit = num % 10;
         reversedNum = reversedNum * 10 + digit;
-        num /= 10;
+        num = num / 10;
     }
     return (originalNum == reversedNum);
 }

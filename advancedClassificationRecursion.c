@@ -1,4 +1,5 @@
 #include "NumClass.h"
+// Calculate the pow recursively
 int powRec(int n , int x) {
     if (x == 0) {
         return 1;
@@ -6,7 +7,7 @@ int powRec(int n , int x) {
         return n * powRec(n , x-1);
     }
 }
-
+// Calculate the length of the number recursively
 int lengthRec(int x) {
     if (x == 0) {
         return 0;
@@ -14,6 +15,7 @@ int lengthRec(int x) {
         return 1 + lengthRec(x / 10);
     }
 }
+
 int sumOfPowers(int x, int lenOfNumber) {
     if (x == 0) {
         return 0;
@@ -31,26 +33,16 @@ int isArmstrong(int x){
 }
 
 
-int isPalindromeRec(int x, int divisor) {
-    if (x < 10) {
-        return 1; // Single-digit numbers are palindromes
+// Recursive function for Palindrome
+int isPalindromeRec(int x, int originalNum) {
+    if (x == 0) {
+        return originalNum;
     } else {
-        int firstDigit = x / divisor;
-        int lastDigit = x % 10;
-
-        if (firstDigit != lastDigit) {
-            return 0; // Not a palindrome if the first and last digits are different
-        } else {
-            return isPalindromeRec((x % divisor) / 10, divisor / 100);
-        }
+        return isPalindromeRec(x / 10, originalNum * 10 + x % 10);
     }
 }
 
-// Wrapper function to initialize the divisor and call the recursive function
+// Wrapper function to call the recursive function send to "isPalindromeRec"
 int isPalindrome(int x) {
-    int divisor = 1;
-    while (x / divisor >= 10) {
-        divisor *= 10;
-    }
-    return isPalindromeRec(x, divisor);
+    return (x == isPalindromeRec(x, 0));
 }
