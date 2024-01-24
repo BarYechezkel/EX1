@@ -26,7 +26,7 @@ int main() {
 
    
 
-    printf ("\nThe Palindromes are:");
+    printf("\nThe Palindromes are:");
     for (int i=small; i<=big; i++){
          if (isPalindrome(i)){
             printf(" %d",i);
@@ -40,7 +40,7 @@ int main() {
         }
     }
 
-     printf ("\nThe Strong numbers are:");
+     printf("\nThe Strong numbers are:\n");
     for (int i=small; i<=big; i++){
          if (isStrong(i)){
             printf(" %d",i);
