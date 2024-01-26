@@ -8,9 +8,9 @@ LIBREC = libclassrec.a
 LIBLOOPDYN = libclassloops.so
 LIBRECDYN = libclassrec.so
 
-all: libclassloops.so libclassrec.so libclassrec.a libclassloops.a mains maindloop maindrec
+all: $(LIBLOOPDYN) $(LIBRECDYN) $(LIBREC) $(LIBLOOP)  mains maindloop maindrec
 
-.PHONY: all clean 
+.PHONY: all clean loops recursives recursived loopd
 
 # define macros that adjust to the assignment variables.
 loops: $(LIBLOOP)
@@ -27,15 +27,23 @@ allMainProg = mains maindloop maindrec
 
 #Create make mains.
 mains: $(MAIN:.c=.o) $(LIBREC)
-	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBREC) -lm -o mains
+	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBREC) -o mains
 
 #Create make maindloop.
 maindloop: $(MAIN:.c=.o) $(LIBLOOPDYN)
-	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBLOOPDYN) -lm -o maindloop
+	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBLOOPDYN) -o maindloop
 
 #Create make maindrec.
-maindrec:$(MAIN:.c=.o) $(LIBRECDYN)
-	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBRECDYN) -lm -o maindrec
+maindrec: $(MAIN:.c=.o) $(LIBRECDYN)
+	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBRECDYN) -o maindrec
+
+
+
+
+$(MAIN:.c=.o): $(MAIN) NumClass.h
+	gcc -c $(MAIN) -o $(MAIN:.c=.o)
+
+
 
 #Create libclassloops.a
 $(LIBLOOP): $(ADVLOOP:.c=.o) $(BASECLASS:.c=.o)
@@ -47,15 +55,23 @@ $(LIBREC):$(ADVREC:.c=.o) $(BASECLASS:.c=.o)
 
 #Create libclassloops.so
 $(LIBLOOPDYN): $(ADVLOOP:.c=.o) $(BASECLASS:.c=.o)
-	gcc -shared -o $(LIBLOOPDYN) $(ADVLOOP:.c=.o) $(BASECLASS:.c=.o)  
+	gcc -shared  $(ADVLOOP:.c=.o) $(BASECLASS:.c=.o) -o $(LIBLOOPDYN)
 
 #Create  libclassrec.so.
 $(LIBRECDYN): $(ADVREC:.c=.o) $(BASECLASS:.c=.o)
-	gcc -shared -o $(LIBRECDYN) $(ADVREC:.c=.o) $(BASECLASS:.c=.o)  
+	gcc -shared $(ADVREC:.c=.o) $(BASECLASS:.c=.o) -o $(LIBRECDYN)  
 
 
-# Build all programs and libraries. 
-all: mains maindloop maindrec loops recursives recursived loopd
+#////////////////////////////////////////////////////
+$(BASECLASS:.c=.o): $(BASECLASS) NumClass.h
+	gcc -Wall -g -fPIC -c $(BASECLASS) -o $(BASECLASS:.c=.o)
+
+$(ADVLOOP:.c=.o): $(ADVLOOP) NumClass.h
+	gcc -Wall -g -fPIC -c $(ADVLOOP) -o $(ADVLOOP:.c=.o)
+
+$(ADVREC:.c=.o): $(ADVREC) NumClass.h
+	gcc -Wall -g -fPIC -c $(ADVREC) -o $(ADVREC:.c=.o)
+
 
 #remove all "main" programs an any file with prefix *.o *.a *.so
 clean:
