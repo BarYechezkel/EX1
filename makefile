@@ -26,15 +26,15 @@ allMainProg = mains maindloop maindrec
 # Building all libraries
 
 #Create make mains.
-mains: $(MAIN:.c=.o) $(LIBREC)
+mains: $(MAIN:.c=.o)
 	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBREC) -o mains
 
 #Create make maindloop.
-maindloop: $(MAIN:.c=.o) $(LIBLOOPDYN)
+maindloop: $(MAIN:.c=.o)
 	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBLOOPDYN) -o maindloop
 
 #Create make maindrec.
-maindrec: $(MAIN:.c=.o) $(LIBRECDYN)
+maindrec: $(MAIN:.c=.o)
 	gcc -Wall -g $(MAIN:.c=.o) ./$(LIBRECDYN) -o maindrec
 
 
