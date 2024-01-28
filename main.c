@@ -5,7 +5,7 @@ int main() {
 
     //printf ("input 2 numbers");
 
-    scanf("%d%d",&a,&b);
+    if (scanf("%d%d",&a,&b)==2){
 
     int big = 0, small = 0;
     if (a>b){
@@ -51,4 +51,5 @@ int main() {
 
      return 0;
 
+}
 }
